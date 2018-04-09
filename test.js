@@ -1,6 +1,5 @@
-import shallowize from './index';
-import * as riot_ from 'riot';
-const riot = shallowize(riot_);
+const shallowize = require('./dist');
+const riot = shallowize(require('riot'));
 
 riot.tag2('inner-tag', 'Hello!, {opts.data}!', '', '', () => {});
 riot.tag2('tag', '<inner-tag data={"test"}>(child)</inner-tag>', '', '', () => {});
