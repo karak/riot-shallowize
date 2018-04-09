@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "riot": "^3.9.1",
-    "mockery": "^2.1.0"
+    "lodash": "^4.17.5",
+    "riot": "^3.9.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
