@@ -20,13 +20,13 @@
   "module": "lib/index.js",
   "jsnext:main": "lib/index.js",
   "dependencies": {
-    "babel-preset-stage-2": "^6.24.1",
     "riot": "^3.9.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-jest": "^22.4.3",
     "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-stage-2": "^6.24.1",
     "babel-preset-env": "^1.6.1",
     "jest": "^22.4.3",
     "rollup": "^0.57.1",
