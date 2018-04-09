@@ -15,5 +15,6 @@ function shallow(tagName, opts) {
   }
 }
 
-export * from 'riot';
-export { shallow }
+export default function shallowize(riot) {
+  return { ...riot, shallow };
+}

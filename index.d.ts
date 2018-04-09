@@ -1,8 +1,6 @@
 import * as riot from 'riot';
 
-const shallow: typeof riot.mount;
+declare type riotShallowized = riot & { shallow: typeof riot.mount };
+declare function shallowize(riot: typeof riot): riotShallowized;
 
-export * from 'riot';
-export {
-    shallow
-}
+export default shallowize;
