@@ -2,13 +2,9 @@
   "presets": [
     ["env", {
       "targets": {
-        "node": "6.10.0"
-      },
-      "modules": false
+        "node": "current"
+      }
     }],
     "stage-2"
-  ],
-  "plugins": [
-    "external-helpers"
   ]
 }
