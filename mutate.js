@@ -1,5 +1,5 @@
 import * as riot from 'riot';
-import each from 'lodash/each';
+import each from './each';
 
 /** Get all of the tag registered. 
  *  @returns {Array<String>} */

@@ -18,7 +18,6 @@
   "license": "MIT",
   "main": "index.js",
   "dependencies": {
-    "lodash": "^4.17.5",
     "riot": "^3.9.1"
   },
   "devDependencies": {
