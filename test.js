@@ -1,19 +1,7 @@
-import mutate from './mutate';
-import * as riot from 'riot';
+import * as riot from './index';
 
 riot.tag2('inner-tag', 'Hello!, {opts.data}!', '', '', () => {});
 riot.tag2('tag', '<inner-tag data={"test"}>(child)</inner-tag>', '', '', () => {});
-
-function shallow() {
-  const restore = mutate('tag');
-  try {
-    return this.mount.apply(this, arguments);
-  } finally {
-    restore();
-  }
-}
-
-riot.shallow = shallow; // TODO: make wrapper not touch original "riot"
 
 describe('test', () => {
   describe('deep', () => {
