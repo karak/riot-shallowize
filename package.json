@@ -1,8 +1,22 @@
 {
   "name": "riot-shallowize",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "0.1.0",
+  "keywords": [
+    "shallow rendering",
+    "test",
+    "riotjs",
+    "riot.js",
+    "testing",
+    "testing utils",
+    "tdd"
+  ],
+  "author": "karak",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/karak/riot-shallowize"
+  },
   "license": "MIT",
+  "main": "index.js",
   "dependencies": {
     "lodash": "^4.17.5",
     "riot": "^3.9.1"
@@ -15,6 +29,5 @@
   },
   "scripts": {
     "test": "jest"
-  },
-  "private": true
+  }
 }
