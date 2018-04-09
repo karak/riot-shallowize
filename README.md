@@ -2,7 +2,7 @@
 
 A handy shallow rendering utility for [RiotJS](http://riotjs.com/).
 
-Virtually, `shallow` just replace all the tags but the root by `&lt;nested-tag&gt;&lt;yield /&gt;&lt;/nested-tag&gt;` during mount.
+Virtually, `shallow` just replace all the tags but the root by `<nested-tag><yield /></nested-tag>` during mount.
 
 ## Intallation
 
@@ -31,10 +31,10 @@ riot.mount('*', { data: "Hello" });
 
 Templating also works except followings and expressions work with some exceptions.
 
-Context object is *always* a psuedo tag instance on the implementation above, wihtout any attributes, styles, or scripts.
+Context object under the nested tags is *always* a psuedo tag instance on the implementation above, wihtout any attributes, styles, or scripts.
 
 This means that using `this` in child nodes may may be troublesome.
 In fact, such tags has technically no apptitude for shallow-rendering
 --actually, it may have design issues in modularity because it couldn't resist the mutation of one of the nested tags.
 
-And `&lt;yield to="..." /&gt;` never works.
+And `<yield to="..." />` never works.
