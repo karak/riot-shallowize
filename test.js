@@ -1,5 +1,6 @@
-const shallowize = require('./dist');
-const riot = shallowize(require('riot'));
+import shallowize from './lib';
+import * as _riot from 'riot';
+const riot = shallowize(_riot);
 
 riot.tag2('inner-tag', 'Hello!, {opts.data}!', '', '', () => {});
 riot.tag2('tag', '<inner-tag data={"test"}>(child)</inner-tag>', '', '', () => {});
@@ -31,6 +32,14 @@ describe('test', () => {
       expect(rootTag.root.querySelector('inner-tag').innerHTML).toBe('(child)')
 
       rootTag.unmount();
+    });
+
+    it('with tagName opts', () => {
+      const div = document.createElement('tag');
+      document.body.appendChild(div);
+      const rootTag = riot.shallow('*', 'tag')[0];
+
+      expect(rootTag.root.querySelectorAll('inner-tag').length).toBe(1)
     });
   });
 });
