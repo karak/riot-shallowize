@@ -2,8 +2,9 @@ import shallowize from './lib';
 import * as _riot from 'riot';
 const riot = shallowize(_riot);
 
-riot.tag2('inner-tag', 'Hello!, {opts.data}!', '', '', () => {});
-riot.tag2('tag', '<inner-tag data={"test"}>(child)</inner-tag>', '', '', () => {});
+// load and compile tags to test
+riot.require('./tags/tag.tag');
+riot.require('./tags/inner-tag.tag');
 
 /** Test harness to setup a single tag */
 class DomEnv {
