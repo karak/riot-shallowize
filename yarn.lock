@@ -287,7 +287,7 @@ babel-code-frame@^6.22.0, babel-code-frame@^6.26.0:
     esutils "^2.0.2"
     js-tokens "^3.0.2"
 
-babel-core@^6.0.0, babel-core@^6.26.0:
+babel-core@^6.0.0, babel-core@^6.23.1, babel-core@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-core/-/babel-core-6.26.0.tgz#af32f78b31a6fcef119c87b0fd8d9753f03a0bb8"
   dependencies:
@@ -3611,6 +3611,13 @@ riot-compiler@^3.4.0:
     source-map "^0.6.1"
     string-similarity "^1.2.0"
 
+riot-jest-transformer@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/riot-jest-transformer/-/riot-jest-transformer-1.0.10.tgz#be682bcabf978258847a0825ef948d5afef0b5ca"
+  dependencies:
+    babel-core "^6.23.1"
+    riot "^3.3.1"
+
 riot-observable@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/riot-observable/-/riot-observable-3.0.0.tgz#8bbd2daf72a2141bb043082df4023dc504bad2eb"
@@ -3621,7 +3628,7 @@ riot-tmpl@^3.0.8:
   dependencies:
     eslint-config-riot "^1.0.0"
 
-riot@^3.9.1:
+riot@^3.3.1, riot@^3.9.1:
   version "3.9.1"
   resolved "https://registry.yarnpkg.com/riot/-/riot-3.9.1.tgz#085abc4a61e6408905bdb9dfd4e4967228962590"
   dependencies:

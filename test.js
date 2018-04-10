@@ -1,10 +1,8 @@
 import shallowize from './lib';
 import * as _riot from 'riot';
 const riot = shallowize(_riot);
-
-// load and compile tags to test
-riot.require('./tags/tag.tag');
-riot.require('./tags/inner-tag.tag');
+import './tags/tag.tag';
+import './tags/inner-tag.tag';
 
 /** Test harness to setup a single tag */
 class DomEnv {
