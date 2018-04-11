@@ -10,27 +10,50 @@ class DomEnv {
     this._tagName = tagName;
   }
 
-  createElement() {
-    const div = document.createElement(this._tagName);
-    document.body.appendChild(div);
-    this._container = div;
-  }
-
+  /**
+   * mount
+   *
+   * @param {Object=} opts - tag interface
+   */
   mount(opts) {
+    this._createElement();
     return (this._rootTag = riot.mount(this._tagName, opts)[0]);
   }
 
+  /**
+   * shallow alternative to mount
+   *
+   * @param {String=} selector - selector to elements to mount
+   * @param {Object=} opts - tag interface
+   */
   shallow(selector, opts) {
+    this._createElement();
     if (typeof selector === 'string') {
       return (this._rootTag = riot.shallow(selector, this._tagName, opts)[0]);
     } else {
+      opts = selector;
       return (this._rootTag = riot.shallow(this._tagName, opts)[0]);
     }
   }
 
+  /**
+   * create container element to mount
+   */
+  _createElement() {
+    if (!this._container) {
+      const div = document.createElement(this._tagName);
+      document.body.appendChild(div);
+      this._container = div;
+    }
+  }
+
+  /**
+   * unmount
+   */
   unmount() {
     if (this._rootTag) {
       this._rootTag.unmount();
+      delete this._container;
     } else if (this._container) {
       document.body.removeChild(this._container);
       delete this._container;
@@ -41,7 +64,6 @@ class DomEnv {
 describe('test', () => {
   const dom = new DomEnv('tag');
 
-  beforeEach(() => dom.createElement());
   afterEach(() => dom.unmount());
 
   describe('deep', () => {
