@@ -16,7 +16,7 @@
     "url": "https://github.com/karak/riot-shallowize"
   },
   "license": "MIT",
-  "main": "index.js",
+  "main": "dist/index.js",
   "module": "lib/index.js",
   "jsnext:main": "lib/index.js",
   "dependencies": {
