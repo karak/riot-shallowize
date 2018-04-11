@@ -4,23 +4,24 @@ export default {
   input: 'lib/index.js',
   output: {
     file: 'dist/index.js',
-    format: 'cjs',
+    format: 'cjs'
   },
-  external: [
-    'riot',
-  ],
+  external: ['riot'],
   plugins: [
     babel({
       babelrc: false,
       presets: [
-        ["env", {
-          "targets": {
-            "node": "6.10.0"
-          },
-          "modules": false
-        }],
-        "stage-2"
+        [
+          'env',
+          {
+            targets: {
+              node: '6.10.0'
+            },
+            modules: false
+          }
+        ],
+        'stage-2'
       ]
     })
   ]
-}
+};

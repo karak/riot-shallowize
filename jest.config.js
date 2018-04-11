@@ -1,6 +1,6 @@
 module.exports = {
   transform: {
-    "^.+\\.jsx?$": "babel-jest",
-    "^.+\\.tag$": "riot-jest-transformer"
+    '^.+\\.jsx?$': 'babel-jest',
+    '^.+\\.tag$': 'riot-jest-transformer'
   }
 };
