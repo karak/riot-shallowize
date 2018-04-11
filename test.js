@@ -1,4 +1,5 @@
 import shallowize from './lib';
+import $ from 'jquery';
 import * as _riot from 'riot';
 const riot = shallowize(_riot);
 import './tags/tag.tag';
@@ -68,30 +69,26 @@ describe('test', () => {
 
   describe('deep', () => {
     it('mount works', () => {
-      const rootTag = dom.mount();
+      const $root = $(dom.mount().root);
 
-      expect(rootTag.root.querySelectorAll('inner-tag').length).toBe(1);
-      expect(rootTag.root.querySelector('inner-tag').innerHTML).toBe(
-        'Hello!, test!'
-      );
+      expect($root.find('inner-tag').length).toBe(1);
+      expect($root.find('inner-tag').html()).toBe('Hello!, test!');
     });
   });
 
   describe('shallow', () => {
     it('shallow works', () => {
-      const rootTag = dom.shallow();
+      const $root = $(dom.shallow().root);
 
-      expect(rootTag.root.querySelectorAll('inner-tag').length).toBe(1);
-      expect(rootTag.root.querySelector('inner-tag').getAttribute('data')).toBe(
-        'test'
-      );
-      expect(rootTag.root.querySelector('inner-tag').innerHTML).toBe('(child)');
+      expect($root.find('inner-tag').length).toBe(1);
+      expect($root.find('inner-tag').attr('data')).toBe('test');
+      expect($root.find('inner-tag').html()).toBe('(child)');
     });
 
     it('with tagName opts', () => {
-      const rootTag = dom.shallow('*');
+      const $root = $(dom.shallow('*').root);
 
-      expect(rootTag.root.querySelectorAll('inner-tag').length).toBe(1);
+      expect($root.find('inner-tag').length).toBe(1);
     });
   });
 });
