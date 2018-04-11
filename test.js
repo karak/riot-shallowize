@@ -4,6 +4,7 @@ import * as _riot from 'riot';
 const riot = shallowize(_riot);
 import './tags/tag.tag';
 import './tags/inner-tag.tag';
+import './tags/each.tag';
 
 /** Test harness to setup a single tag */
 class DomEnv {
@@ -89,6 +90,25 @@ describe('test', () => {
       const $root = $(dom.shallow('*').root);
 
       expect($root.find('inner-tag').length).toBe(1);
+    });
+  });
+});
+
+describe('"each" attribute', () => {
+  describe('shallow', () => {
+    const dom = new DomEnv('each');
+
+    it('iterate at certain times', () => {
+      const items = ['a', 'b', 'c'];
+      const $root = $(dom.shallow({ items }).root);
+
+      expect($root.find('li').length).toBe(items.length);
+      expect(
+        $root
+          .find('li')
+          .toArray()
+          .map(x => x.textContent)
+      ).toEqual(items);
     });
   });
 });
