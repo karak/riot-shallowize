@@ -25,15 +25,17 @@ class DomEnv {
   /**
    * shallow alternative to mount
    *
-   * @param {String=} selector - selector to elements to mount
+   * @param {String|Element=} selector - selector or element to elements to mount
    * @param {Object=} opts - tag interface
    */
   shallow(selector, opts) {
     this._createElement();
-    if (typeof selector === 'string') {
+    if (typeof selector === 'string' || selector instanceof HTMLElement) {
+      selector = arguments[0];
+      opts = arguments[1];
       return (this._rootTag = riot.shallow(selector, this._tagName, opts)[0]);
     } else {
-      opts = selector;
+      opts = arguments[0];
       return (this._rootTag = riot.shallow(this._tagName, opts)[0]);
     }
   }
@@ -86,8 +88,20 @@ describe('test', () => {
       expect($root.find('inner-tag').html()).toBe('(child)');
     });
 
-    it('with tagName opts', () => {
+    it('selector with tagName opts', () => {
       const $root = $(dom.shallow('*').root);
+
+      expect($root.find('inner-tag').length).toBe(1);
+    });
+
+    it('element with tagName opts', () => {
+      const element = document.createElement('div');
+      const root = dom.shallow(element).root;
+      const $root = $(root);
+
+      expect(root).toBe(element);
+      expect($root.is('div')).toBeTruthy();
+      expect($root.attr('data-is')).toBe('tag');
 
       expect($root.find('inner-tag').length).toBe(1);
     });
