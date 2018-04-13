@@ -1,4 +1,4 @@
-import shallowize from './lib';
+import shallowize from '../lib';
 import $ from 'jquery';
 import * as _riot from 'riot';
 const riot = shallowize(_riot);
