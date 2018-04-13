@@ -4,6 +4,7 @@ import * as _riot from 'riot';
 const riot = shallowize(_riot);
 import './tags/tag.tag';
 import './tags/inner-tag.tag';
+import './tags/inner-elements.tag';
 import './tags/each.tag';
 
 /** Test harness to setup a single tag */
@@ -124,5 +125,18 @@ describe('"each" attribute', () => {
           .map(x => x.textContent)
       ).toEqual(items);
     });
+  });
+});
+
+describe('inner-elements', () => {
+  const dom = new DomEnv('inner-elements');
+
+  it('completely renders nested HTML elements', () => {
+    const $root = $(dom.shallow().root);
+
+    expect($root.find('> div').length).toBe(1);
+
+    expect($root.find('> div > p').length).toBe(1);
+    expect($root.find('> div > p').text()).toBe('Hello');
   });
 });
