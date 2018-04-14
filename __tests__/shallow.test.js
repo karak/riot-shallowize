@@ -78,6 +78,13 @@ describe('test', () => {
       expect($root.find('inner-tag').length).toBe(1);
       expect($root.find('inner-tag').html()).toBe('Hello!, test!');
     });
+
+    it('has "inner-tag" in tags', () => {
+      const tag = dom.mount();
+
+      expect(tag.tags).toHaveProperty('inner-tag');
+      expect(tag.tags['inner-tag']).toHaveProperty('opts', { data: 'test' });
+    });
   });
 
   describe('shallow', () => {
@@ -105,6 +112,13 @@ describe('test', () => {
       expect($root.attr('data-is')).toBe('tag');
 
       expect($root.find('inner-tag').length).toBe(1);
+    });
+
+    it('has "inner-tag" in tags', () => {
+      const tag = dom.shallow();
+
+      expect(tag.tags).toHaveProperty('inner-tag');
+      expect(tag.tags['inner-tag']).toHaveProperty('opts', { data: 'test' });
     });
   });
 });
