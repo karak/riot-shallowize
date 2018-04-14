@@ -6,6 +6,8 @@ import './tags/tag.tag';
 import './tags/inner-tag.tag';
 import './tags/inner-elements.tag';
 import './tags/each.tag';
+import './tags/parent.tag';
+import './tags/parent-incomplete.tag';
 
 /** Test harness to setup a single tag */
 class DomEnv {
@@ -152,5 +154,49 @@ describe('inner-elements', () => {
 
     expect($root.find('> div > p').length).toBe(1);
     expect($root.find('> div > p').text()).toBe('Hello');
+  });
+});
+
+describe('parent', () => {
+  const dom = new DomEnv('parent');
+  describe('shallow', () => {
+    it('renders expressions as assuming nest by one-level', () => {
+      const $root = $(dom.shallow({ data: 'Hello' }).root);
+
+      expect($root.find('parent2')).toHaveLength(1);
+      expect($root.find('parent2 > p')).toHaveLength(1);
+      expect($root.find('parent2 > p').text()).toBe('Hello');
+      expect($root.html()).toBe('<parent2><p>Hello</p></parent2>');
+    });
+  });
+});
+
+describe('parent-incomplete', () => {
+  const dom = new DomEnv('parent-incomplete');
+  let consoleSpy = {};
+
+  beforeEach(() => {
+    consoleSpy.log = jest.spyOn(console, 'log').mockImplementation(() => {});
+    consoleSpy.error = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    consoleSpy.log.mockRestore();
+    consoleSpy.error.mockRestore();
+  });
+
+  describe('shallow', () => {
+    it('renders unregisterd tags as plain elements', () => {
+      const $root = $(dom.shallow({ data: 'Hello' }).root);
+      // => cause error
+
+      expect($root.find('parent2-incomplete')).toHaveLength(1);
+      expect($root.find('parent2-incomplete > p').text()).toBe('');
+
+      expect(consoleSpy.log).toHaveBeenCalledTimes(2);
+      expect(consoleSpy.error).toHaveBeenCalledTimes(1);
+    });
   });
 });
