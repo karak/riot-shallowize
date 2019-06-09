@@ -1,12 +1,5 @@
 <each>
   <ul>
-    <li each={item in items}>{item}</li>
+    <li each={item in props.items}>{item}</li>
   </ul>
-  <script>
-  export default {
-    onMount(props) {
-      this.state.items = props.items
-    }
-  }
-  </script>
 </each>

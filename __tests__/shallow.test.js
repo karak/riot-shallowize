@@ -149,12 +149,12 @@ describe('"each" attribute', () => {
 
     it('iterate at certain times', () => {
       const items = ['a', 'b', 'c'];
-      const $root = $(
-        dom.shallow({
-          items
-        }).root
-      );
+      const root = dom.shallow({
+        items
+      }).root;
+      const $root = $(root);
 
+      expect($root.find('ul')).toHaveLength(1);
       expect($root.find('li')).toHaveLength(items.length);
       expect(
         $root
