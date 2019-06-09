@@ -2,12 +2,19 @@ import shallowize from '../lib';
 import $ from 'jquery';
 import * as _riot from 'riot';
 const riot = shallowize(_riot);
-import './tags/tag.riot';
-import './tags/inner-tag.riot';
-import './tags/inner-elements.riot';
-import './tags/each.riot';
-import './tags/parent.riot';
-import './tags/parent-incomplete.riot';
+import tag from './tags/tag.riot';
+import innerTag from './tags/inner-tag.riot';
+import innerElements from './tags/inner-elements.riot';
+import each from './tags/each.riot';
+import parent from './tags/parent.riot';
+import parentIncomplete from './tags/parent-incomplete.riot';
+
+riot.register('tag', tag);
+riot.register('inner-tag', innerTag);
+riot.register('inner-elements', innerElements);
+riot.register('each', each);
+riot.register('parent', parent);
+riot.register('parent-incomplete', parentIncomplete);
 
 /** Test harness to setup a single tag */
 class DomEnv {
@@ -20,27 +27,39 @@ class DomEnv {
    *
    * @param {Object=} opts - tag interface
    */
-  mount(opts) {
+  mount(initialProps) {
     this._createElement();
-    return (this._rootTag = riot.mount(this._tagName, opts)[0]);
+    return (this._rootTag = riot.mount(this._tagName, initialProps)[0]);
   }
 
   /**
    * shallow alternative to mount
    *
-   * @param {String|Element=} selector - selector or element to elements to mount
-   * @param {Object=} opts - tag interface
+   * @param {String|Element=} selector - selector or element to mount
+   * @param {Object=} initialProps - initial values of props
+   * @example
+   * ```
+   * shallow('tag')
+   * shallow('tag', { data: 'data' })
+   * shallow(el)
+   * shallow(el, { data: 'data' })
+   * shallow({ data: 'data' })
+   * ```
    */
-  shallow(selector, opts) {
+  shallow(selector, initialProps) {
     this._createElement();
-    if (typeof selector === 'string' || selector instanceof HTMLElement) {
-      selector = arguments[0];
-      opts = arguments[1];
-      return (this._rootTag = riot.shallow(selector, this._tagName, opts)[0]);
-    } else {
-      opts = arguments[0];
-      return (this._rootTag = riot.shallow(this._tagName, opts)[0]);
+    if (typeof selector !== 'string' && !(selector instanceof HTMLElement)) {
+      if (typeof selector === 'object') {
+        initialProps = selector;
+      }
+      selector = this._tagName;
     }
+    initialProps = initialProps || {};
+    return (this._rootTag = riot.shallow(
+      selector,
+      initialProps,
+      this._tagName
+    )[0]);
   }
 
   /**
@@ -78,16 +97,13 @@ describe('test', () => {
       const $root = $(dom.mount().root);
 
       expect($root.find('inner-tag').length).toBe(1);
-      expect($root.find('inner-tag').html()).toBe('Hello!, test!');
+      expect($root.find('inner-tag').html()).toBe('\n  Hello!, test!\n');
     });
 
-    it('has "inner-tag" in tags', () => {
+    it('has no `tags` property(v4)', () => {
       const tag = dom.mount();
 
-      expect(tag.tags).toHaveProperty('inner-tag');
-      expect(tag.tags['inner-tag']).toHaveProperty('opts', {
-        data: 'test'
-      });
+      expect(tag).not.toHaveProperty('tags');
     });
   });
 
@@ -101,30 +117,28 @@ describe('test', () => {
     });
 
     it('selector with tagName opts', () => {
-      const $root = $(dom.shallow('*').root);
+      const $root = $(dom.shallow('tag').root);
 
       expect($root.find('inner-tag').length).toBe(1);
     });
 
     it('element with tagName opts', () => {
       const element = document.createElement('div');
+      element.setAttribute('is', 'tag');
       const root = dom.shallow(element).root;
       const $root = $(root);
 
       expect(root).toBe(element);
       expect($root.is('div')).toBeTruthy();
-      expect($root.attr('data-is')).toBe('tag');
+      expect($root.attr('is')).toBe('tag');
 
       expect($root.find('inner-tag').length).toBe(1);
     });
 
-    it('has "inner-tag" in tags', () => {
+    it('has no `tags` property(v4)', () => {
       const tag = dom.shallow();
 
-      expect(tag.tags).toHaveProperty('inner-tag');
-      expect(tag.tags['inner-tag']).toHaveProperty('opts', {
-        data: 'test'
-      });
+      expect(tag).not.toHaveProperty('tags');
     });
   });
 });
@@ -141,7 +155,7 @@ describe('"each" attribute', () => {
         }).root
       );
 
-      expect($root.find('li').length).toBe(items.length);
+      expect($root.find('li')).toHaveLength(items.length);
       expect(
         $root
           .find('li')
@@ -158,9 +172,9 @@ describe('inner-elements', () => {
   it('completely renders nested HTML elements', () => {
     const $root = $(dom.shallow().root);
 
-    expect($root.find('> div').length).toBe(1);
+    expect($root.find('> div')).toHaveLength(1);
 
-    expect($root.find('> div > p').length).toBe(1);
+    expect($root.find('> div > p')).toHaveLength(1);
     expect($root.find('> div > p').text()).toBe('Hello');
   });
 });
