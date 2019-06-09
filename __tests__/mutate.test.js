@@ -1,12 +1,18 @@
-import { tag, unregister } from 'riot';
+import { register, unregister } from 'riot';
 import mutate from '../lib/mutate';
 
 describe('mutate', () => {
-  it('works on unregsitered tags', () => {
-    tag('tag1');
-    tag('tag2');
+  beforeAll(() => {
+    register('tag1', {});
+    register('tag2', {});
     unregister('tag2');
+  });
 
+  afterAll(() => {
+    unregister('tag2');
+  });
+
+  it('works on unregsitered tags', () => {
     let restore;
 
     expect(() => {
