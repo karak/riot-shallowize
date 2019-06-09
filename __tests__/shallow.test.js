@@ -2,12 +2,12 @@ import shallowize from '../lib';
 import $ from 'jquery';
 import * as _riot from 'riot';
 const riot = shallowize(_riot);
-import './tags/tag.tag';
-import './tags/inner-tag.tag';
-import './tags/inner-elements.tag';
-import './tags/each.tag';
-import './tags/parent.tag';
-import './tags/parent-incomplete.tag';
+import './tags/tag.riot';
+import './tags/inner-tag.riot';
+import './tags/inner-elements.riot';
+import './tags/each.riot';
+import './tags/parent.riot';
+import './tags/parent-incomplete.riot';
 
 /** Test harness to setup a single tag */
 class DomEnv {
@@ -85,7 +85,9 @@ describe('test', () => {
       const tag = dom.mount();
 
       expect(tag.tags).toHaveProperty('inner-tag');
-      expect(tag.tags['inner-tag']).toHaveProperty('opts', { data: 'test' });
+      expect(tag.tags['inner-tag']).toHaveProperty('opts', {
+        data: 'test'
+      });
     });
   });
 
@@ -120,7 +122,9 @@ describe('test', () => {
       const tag = dom.shallow();
 
       expect(tag.tags).toHaveProperty('inner-tag');
-      expect(tag.tags['inner-tag']).toHaveProperty('opts', { data: 'test' });
+      expect(tag.tags['inner-tag']).toHaveProperty('opts', {
+        data: 'test'
+      });
     });
   });
 });
@@ -131,7 +135,11 @@ describe('"each" attribute', () => {
 
     it('iterate at certain times', () => {
       const items = ['a', 'b', 'c'];
-      const $root = $(dom.shallow({ items }).root);
+      const $root = $(
+        dom.shallow({
+          items
+        }).root
+      );
 
       expect($root.find('li').length).toBe(items.length);
       expect(
@@ -161,7 +169,11 @@ describe('parent', () => {
   const dom = new DomEnv('parent');
   describe('shallow', () => {
     it('renders expressions as assuming nest by one-level', () => {
-      const $root = $(dom.shallow({ data: 'Hello' }).root);
+      const $root = $(
+        dom.shallow({
+          data: 'Hello'
+        }).root
+      );
 
       expect($root.find('parent2')).toHaveLength(1);
       expect($root.find('parent2 > p')).toHaveLength(1);
@@ -189,7 +201,11 @@ describe('parent-incomplete', () => {
 
   describe('shallow', () => {
     it('renders unregisterd tags as plain elements', () => {
-      const $root = $(dom.shallow({ data: 'Hello' }).root);
+      const $root = $(
+        dom.shallow({
+          data: 'Hello'
+        }).root
+      );
       // => cause error
 
       expect($root.find('parent2-incomplete')).toHaveLength(1);
