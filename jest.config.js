@@ -2,6 +2,6 @@ module.exports = {
   testURL: 'http://localhost/',
   transform: {
     '^.+\\.jsx?$': 'babel-jest',
-    '^.+\\.tag$': 'riot-jest-transformer'
+    '^.+\\.riot$': 'riot-v4-jest-transformer'
   }
 };

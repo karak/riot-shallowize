@@ -20,23 +20,23 @@
   "module": "lib/index.js",
   "jsnext:main": "lib/index.js",
   "dependencies": {
-    "riot": "^3.9.1"
+    "riot": "^4.0.0"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-jest": "^22.4.3",
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-stage-2": "^6.24.1",
+    "@riotjs/compiler": "^4.0.0",
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-external-helpers": "^7.2.0",
+    "@babel/preset-env": "^7.4.5",
+    "babel-jest": "^24.8.0",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
-    "jest": "^22.4.3",
+    "jest": "^24.8.0",
     "jquery": "^3.3.1",
     "prettier": "^1.11.1",
-    "riot-jest-transformer": "^1.0.10",
-    "rollup": "^0.57.1",
-    "rollup-plugin-babel": "^3.0.3"
+    "riot-v4-jest-transformer": "^0.0.1",
+    "rollup": "^1.14.4",
+    "rollup-plugin-babel": "^4.3.2"
   },
   "scripts": {
     "build": "rm -rf dist; rollup -c rollup.config.js",

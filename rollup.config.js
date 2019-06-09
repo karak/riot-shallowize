@@ -12,15 +12,14 @@ export default {
       babelrc: false,
       presets: [
         [
-          'env',
+          '@babel/preset-env',
           {
             targets: {
               node: '6.10.0'
             },
             modules: false
           }
-        ],
-        'stage-2'
+        ]
       ]
     })
   ]
